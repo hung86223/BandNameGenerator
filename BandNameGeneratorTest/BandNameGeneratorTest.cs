@@ -6,15 +6,26 @@ namespace BandNameGeneratorTest
     [TestClass]
     public class BandNameGeneratorTest
     {
+        private BandNameGenerator _bandNameGenerator = new BandNameGenerator();
+
         [TestMethod]
-        public void GiveNounNamePutTheInFront()
+        public void PutTheInFrontWhenGiveNounName()
         {
-            var bandNameGenerator = new BandNameGenerator();
-            var name = "Dolphin";
+            var name = "dolphin";
 
-            var bandName = bandNameGenerator.GenerateBandName(name);
+            var bandName = _bandNameGenerator.GenerateBandName(name);
 
-            Assert.AreEqual("The " + name, bandName);
+            Assert.AreEqual("The Dolphin", bandName);
+        }
+
+        [TestMethod]
+        public void DontPutTheFrontWhenGiveSameLetterName()
+        {
+            var name = "alaska";
+
+            var bandName = _bandNameGenerator.GenerateBandName(name);
+
+            Assert.AreEqual("Alaskalaska", bandName);
         }
     }
 
@@ -22,7 +33,15 @@ namespace BandNameGeneratorTest
     {
         public string GenerateBandName(string giveName)
         {
-            return "The " + giveName;
+            string bandName;
+            var firstChar = giveName[0].ToString().ToUpper();
+            bandName = "The " + firstChar;
+            for (int i = 1; i < giveName.Length; i++)
+            {
+                bandName += giveName[i];
+            }
+
+            return bandName;
         }
     }
 }
