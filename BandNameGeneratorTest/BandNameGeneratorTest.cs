@@ -33,9 +33,23 @@ namespace BandNameGeneratorTest
     {
         public string GenerateBandName(string giveName)
         {
-            string bandName;
+            var bandName = FirstCharToUpper(giveName);
+            if (giveName[0].Equals(giveName[giveName.Length - 1]))
+            {
+                for (int i = 1; i < giveName.Length; i++)
+                {
+                    bandName += giveName[i];
+                }
+                return bandName;
+            }
+
+            return "The " + bandName;
+        }
+
+        private static string FirstCharToUpper(string giveName)
+        {
             var firstChar = giveName[0].ToString().ToUpper();
-            bandName = "The " + firstChar;
+            var bandName = firstChar;
             for (int i = 1; i < giveName.Length; i++)
             {
                 bandName += giveName[i];
